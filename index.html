@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Endabelyu Bookshelf Web Apps</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <header class="nav-bar">
+        <h1 class="nav-title">Endabelyu Bookshelf Web Apps</h1>
+    </header>
+    <main>
+        <div class="content">
+            <section class="search">
+                <h2>Cari Buku</h2>
+                <form id="cariBuku">
+                    <input id="cariJudul" type="text" placeholder="Masukan Judul Buku">
+            <button id="tombolCari" type="submit">Cari buku</button>
+                </form>
+            </section>
+
+            <div class="top">
+                <section class="terakhir-dicari ">
+                    <h2>Buku terakhir di cari</h2>
+                    <article class="book_item">
+                            <h3>Book Title</h3>
+                            <p>Id Buku  : 3657848524</p>
+                            <p>Penulis  : John Doe</p>
+                            <p>Tahun     : 2002</p>
+                    </article>
+                </section>
+                <section class="tambah-buku">
+                    <h2>Masukan Buku Baru</h2>
+                    <form id="tambahBuku">
+                        <div class="input">
+                            <label for="tambahJudulBuku">Judul</label> <br>
+                            <input id="tambahJudulBuku" type="text" required>
+                        </div>
+                        <div class="input">
+                            <label for="tambahIdBuku">Id Buku</label> <br>
+                            <input id="tambahIdBuku" type="number" required>
+                        </div>
+                        <div class="input">
+                            <label for="tambahPenulisBuku">Penulis</label> 
+                            <br>
+                            <input id="tambahPenulisBuku" type="text" required>
+                        </div>
+                        <div class="input tahun ">
+                            <label for="tambahTahunTerbit">Tahun</label>
+                            <br>
+                            <input id="tambahTahunTerbit" type="number" required>
+                        </div>
+                        <div class="checklist-belum checklist">
+                            <label for="checklistBelumSelesai">Belum selesai dibaca</label>
+                            <input id="checklistBelumSelesai" type="checkbox">
+                        </div>
+                        <div class="checklist-selesai checklist">
+                            <label for="checklistSelesai">Selesai dibaca</label>                        
+                            <input id="checklistSelesai" type="checkbox">
+                        </div>
+                        <br>
+                        <button id="bookSubmit" type="submit">Masukkan Buku ke rak </button>
+                    </form>
+                </section>
+            </div>
+            <div class="bot">
+                <section class="belum-dibaca" > 
+                    <h2>Belum Selesai Dibaca</h2>
+                    <div id="daftarBelumDibaca" class="daftar-buku">
+                        <!-- <article class="book_item">
+                            <h3>harry potter : order of the phoenix</h3>
+                            <p>Id Buku: 3657848524</p>
+                            <p>Penulis: John Doe</p>
+                            <p>Tahun: 2002</p>
+
+                            <div class="action">
+                                <button class="green">Selesai dibaca</button>
+                                <button class="red">Hapus buku</button>
+                            </div>
+                        </article> -->
+                    </div>    
+                </section>
+                <section class="sudah-dibaca" > 
+                    <h2>Sudah Selesai Dibaca</h2>
+                    <div id="daftarSudahDibaca" class="daftar-buku">
+                        <!-- <article class="book_item">
+                            <h3>Book Title</h3>
+                            <p>Id Buku: 3657848524</p>
+                            <p>Penulis: John Doe</p>
+                            <p>Tahun: 2002</p>
+
+                            <div class="action">
+                                <button class="green">Belum selesai  dibaca</button>
+                                <button class="red">Hapus buku</button>
+                            </div>
+                        </article> -->
+                    </div>    
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Final Submission Dicoding. Created with <i class="bi bi-suit-heart-fill"></i> by Endabelyu</p>
+    </footer>
+    <script src="JS/dom.js"></script>
+    <script src="JS/script.js"></script>
+</body>
+</html>
