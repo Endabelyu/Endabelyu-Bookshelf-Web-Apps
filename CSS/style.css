@@ -41,7 +41,7 @@ h2 {
 /* Search Section */
 .search {
     width: 75%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 10px;
     line-height: 30px;
     text-align: right;
@@ -74,11 +74,16 @@ h2 {
     background-color: rgba(167, 155, 192, 1);
 }
 
+/* container buku */
+.belum-dibaca {
+    height: 300px;
+}
+
 /* top */
 
 .top {
     margin: auto;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 300px;
     padding: 20px;
     display: flex;
@@ -176,8 +181,8 @@ label {
 /* bot */
 .bot {
     margin: auto;
-    border: 1px solid black;
-    height: 300px;
+    /* border: 1px solid black; */
+    height: fit-content;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
@@ -185,7 +190,10 @@ label {
     width: 75%;
 }
 
+
+
 /* belum selesai section */
+
 .belum-dibaca {
     border: 1px solid black;
     padding: 10px;
@@ -193,6 +201,7 @@ label {
     width: 100%;
     margin-right: 20px;
     line-height: 30px;
+    height: fit-content;
 }
 
 .belum-dibaca>.book_item {
@@ -232,12 +241,13 @@ label {
 
 .yellow {
     padding: 8px;
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 5px;
     border: none;
     background-color: rgb(240, 207, 101);
     color: white;
     cursor: pointer;
+    display: inline;
 }
 
 .red {
@@ -256,8 +266,8 @@ label {
     padding: 10px;
     border-radius: 10px;
     width: 100%;
-    margin-right: 20px;
     line-height: 30px;
+    height: fit-content;
 }
 
 .sudah-dibaca>.book_item {
