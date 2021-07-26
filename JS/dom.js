@@ -1,8 +1,5 @@
 const id_buku_belum_selesai = "daftarBelumDibaca";
 const id_buku_sudah_selesai = "daftarSudahDibaca";   
-const belumDibaca = document.getElementById("bdSection");
-const sudahDibaca = document.getElementById("sdSection");
-const botContainer = document.getElementById("botContainer");
 const BOOKSHLEF_ITEMID = "bookId";
    // masukkan buku baru ke container belum /sudah  selesai  dibaca
   
@@ -111,23 +108,28 @@ const BOOKSHLEF_ITEMID = "bookId";
 
         const inputPenulis = document.getElementById("tambahPenulisBuku").value;
 
-        const inputTahunTerbit= document.getElementById("tambahTahunTerbit").value;
-        
-        const bookshelfObject = composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,false);
+        const inputTahunTerbit= document.getElementById("tambahTahunTerbit").value;        
 
-        bookshelf[BOOKSHLEF_ITEMID] = bookshelfObject.id;
+        const  parameterBelum = masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,false)
 
+        const  parameterSudah= masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,true)
+
+        const bookshelfObjectBelum = composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,false)
+        const bookshelfObjectSudah = composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,true)
 
             if(checkboxBelum.checked === true){
-                bukuBelumSelesai.append(masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,false));
-                bookshelfs.push(bookshelfObject);               
+                bukuBelumSelesai.append(parameterBelum); 
+                bookshelfs.push(bookshelfObjectBelum);  
+                 
             }else if (checkboxSudah.checked ===true){
-                bukuSudahSelesai.append(masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,true));                
+                bukuSudahSelesai.append(parameterSudah);    
+                bookshelfs.push(bookshelfObjectSudah);           
+                
             }else{
                 alert("Pilih Kategori Buku!")                
             }     
-            
-            updateDataStorage();
+            confirm("apakah anda yakin akan menambahkan buku ini?");
+            updateDataBuku();
     };
 
       // masukkan buku ke container sudah selesai  dibaca
@@ -142,16 +144,14 @@ const BOOKSHLEF_ITEMID = "bookId";
 
         const tambahSelesai = pindahBuku(judulBukuSelesai,idBukuSelesai,penulisBukuSelesai,tahunTerbitSelesai, true);
         
-        const bookshelf = findBookshef(daftarBuku[BOOKSHLEF_ITEMID]);
-        bookshelf.sudahBelum = true;
-
-        tambahSelesai[BOOKSHLEF_ITEMID] = bookshelf.id;
-
         const bukuSudahSelesai= document.getElementById(id_buku_sudah_selesai);
         bukuSudahSelesai.append(tambahSelesai);      
-        
+        const bookshelf = findBookshelf(daftarBuku[BOOKSHLEF_ITEMID]);
+        bookshelf.sudahBelum=true;
+        bukuSudahSelesai[BOOKSHLEF_ITEMID] = bookshelf.id;
         daftarBuku.remove();  
-        updateDataStorage();
+         updateDataBuku();
+
     }
     // masukkan buku ke container belum selesai dibaca
 
@@ -167,25 +167,28 @@ const BOOKSHLEF_ITEMID = "bookId";
         const tahunTerbitBelum = daftarBuku.querySelector(".ketiga").innerText;
 
         const tambahBelum = pindahBuku(judulBukuBelum,idBukuBelum,penulisBukuBelum,tahunTerbitBelum, false);
-
-        const bookshelf = findBookshef(daftarBuku[BOOKSHLEF_ITEMID]);
-        bookshelf.sudahBelum = false;
-
-        tambahBelum[BOOKSHLEF_ITEMID] =bookshelf.id;
         belumSelesai.append(tambahBelum);
         
-        daftarBuku.remove();   
-        updateDataStorage();
+        const bookshelf = findBookshelf(daftarBuku[BOOKSHLEF_ITEMID]);
+        bookshelf.sudahBelum = false;
+        tambahBelum[BOOKSHLEF_ITEMID] = bookshelf.id;
+
+        daftarBuku.remove();  
+
+         updateDataBuku();
+
     }
 
     // menghapus buku
-    function hapusBuku(daftarBuku) {
-        
-        const bookshelfPosition = findBookshelfIndex(daftarBuku[BOOKSHLEF_ITEMID]);
+    function hapusBuku(daftarBuku, inputJudul) {
+        const bookshelfPosition =findBookshelfIndex(daftarBuku[BOOKSHLEF_ITEMID]);
         bookshelfs.splice(bookshelfPosition,1);
-        
+        confirm("apakah anda yakin akan menghapus buku ini?");
         daftarBuku.remove();
-        updateDataStorage();
+         updateDataBuku();
+             alert(`Anda telah menghapus data buku yang tersimpan`);
+
+
     }
         const checkboxBelum = document.getElementById("checklistBelumSelesai");
         const checkboxSudah = document.getElementById("checklistSelesai");
@@ -212,82 +215,21 @@ const BOOKSHLEF_ITEMID = "bookId";
         }
     }
 
-    // local web storage
-    const STORAGE_KEY ="BOOKSHELF_APPS";
-    let bookshelfs = [];
-
-    function isStorageExist() {
-        if(typeof(Storage) === undefined) {
-            alert("browser kamu tidak mendukung local storage");        
-            return false
-        }
-        return true;
-    }
-
-    function saveData() {
-        const parsed = JSON.stringify(bookshelfs);
-
-        localStorage.setItem(STORAGE_KEY,parsed);
-
-        document.dispatchEvent(new Event("ondatasaved"));  
-    }
-
-    function localDataFromStorage() {
-        const serializedData = localStorage.getItem(STORAGE_KEY);
-
-
-        let data = JSON.parse(serializedData);
-
-
-        if(data !== null) {
-            bookshelfs = data ;
-        }
-
-        document.dispatchEvent(new Event("ondataloaded"));
-    }
-
-    function updateDataStorage() {
-        if(isStorageExist())
-        saveData();
-        
-    }
-
-    function composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,sudahBelum) {
-        return {
-            judul,
-            id,
-            penulis,
-            tahun,
-            sudahBelum
-        };
-        
-    }
-
-    function findBookshef(bookshelfId) {
-        for(bookshelf of bookshelfs) {
-            if(bookshelf.id === bookshelfId)
-            return bookshelf;
-        }
-        return null;
-    }
-
-
-    function findBookshelfIndex(bookshelfId) {
-        let index = 0;
-        for(bookshelf of bookshelfs){
-            if(bookshelf.id === bookshelfId)
-                return index;
-            
-            index++        
-        }
-        return -1;        
-    }
-
+    
     function refreshDataFromBookshelfs() {
-        const listBelumSelesai = document.getElementById(id_buku_belum_selesai) ;
-        let listSelesai = document.getElementById(id_buku_sudah_selesai);
+        const listBelumSelesai = document.getElementById(id_buku_belum_selesai);
+        let listSelesai = document.getElementById(id_buku_sudah_selesai)
 
-        for (bookshelf of bookshelfs) {
-            const tambahs
+
+        for (bookshelf of bookshelfs){
+            const tambahBuku = masukanBuku(bookshelf.inputJudul,bookshelf.inputID,bookshelf.inputPenulis,bookshelf.inputTahunTerbit,bookshelf.sudahBelum) ;
+            tambahBuku[BOOKSHLEF_ITEMID] = bookshelf.id;
+
+            if(bookshelf.sudahBelum){
+                listSelesai.append(tambahBuku);
+            }else{
+                listBelumSelesai.append(tambahBuku);
+            }
         }
     }
+

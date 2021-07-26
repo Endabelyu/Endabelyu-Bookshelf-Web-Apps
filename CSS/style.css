@@ -278,6 +278,11 @@ label {
     margin-bottom: 15px;
 }
 
+.sudah-dibaca .book_item>h3 {
+    font-size: 1.3em;
+    text-transform: capitalize;
+}
+
 /* footer */
 footer {
     width: 100%;

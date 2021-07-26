@@ -6,4 +6,16 @@ document.addEventListener("DOMContentLoaded", function (){
             event.preventDefault();
             tambahBukuBaru();
     });
+    if(isStorageExist()){
+        loadDataFromStorage();
+    }
+});
+
+
+document.addEventListener("ondatasaved", () => {
+    console.log("Data berhasil di simpan.");
+});
+
+document.addEventListener("ondataloaded", () => {
+    refreshDataFromBookshelfs();
 });
