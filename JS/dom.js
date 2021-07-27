@@ -215,7 +215,7 @@ const BOOKSHLEF_ITEMID = "bookId";
         }
     }
 
-    
+    // menyimpan data buku
     function refreshDataFromBookshelfs() {
         const listBelumSelesai = document.getElementById(id_buku_belum_selesai);
         let listSelesai = document.getElementById(id_buku_sudah_selesai)
@@ -233,3 +233,34 @@ const BOOKSHLEF_ITEMID = "bookId";
         }
     }
 
+
+    // function search tidak diaktifkan karena saya belum bisa membuat sepenuhnya
+// // mengaktifkan tombol cari
+// // function cariBukuDiRak() {
+//     const tombolCaribuku = document.getElementById("tombolCari");
+//     const inputanDicari    = document.getElementById("cariJudul");
+    
+//     tombolCaribuku.addEventListener('click', (event)=> {
+//         console.log(bookshelf);
+//         event.preventDefault();
+//     });
+//     inputanDicari.addEventListener('input', (event)=> {
+//         const cariKata = event.target.value;
+//         for(bookshelf of bookshelfs){
+//             const filterKata = bookshelfs.filter( bookshelf => {
+//                         return(
+//                             bookshelf.inputJudul.includes(cariKata)||
+//                             bookshelf.inputPenulis.includes(cariKata)
+//                         );
+//                     });
+//             tampilkanBuku(filterKata)
+//         }
+       
+//     });
+// //   tampilkan buku
+//     const tampilkanBuku = (bookshelfs) => {
+//         bookshelfs.map((bookshelf)=> {
+//             return masukanBuku(bookshelf.inputJudul,bookshelf.inputID,bookshelf.inputPenulis,bookshelf.inputTahunTerbit,bookshelf.sudahBelum)
+            
+//         });
+//     }
