@@ -1,6 +1,6 @@
 const id_buku_belum_selesai = "daftarBelumDibaca";
 const id_buku_sudah_selesai = "daftarSudahDibaca";   
-const BOOKSHLEF_ITEMID = "bookId";
+const BOOKSHLEF_ITEMID = "itemID";
    // masukkan buku baru ke container belum /sudah  selesai  dibaca
   
     
@@ -33,7 +33,6 @@ const BOOKSHLEF_ITEMID = "bookId";
         
         return containerBuku;
     }
-
     // pindah buku
     function pindahBuku(judul,id,penulis,tahun, sudahBelum) {
         
@@ -63,6 +62,8 @@ const BOOKSHLEF_ITEMID = "bookId";
             
         };
         return containerBuku;
+        
+
     }
     // membuat button
     function buatButton(buttonClass, eventListener,textTombol) {
@@ -71,7 +72,7 @@ const BOOKSHLEF_ITEMID = "bookId";
         button.innerText= textTombol;
         button.addEventListener("click", function (event) {
             eventListener(event);
-            
+            event.stopPropagation();
         });
         return button;
     }
@@ -110,28 +111,30 @@ const BOOKSHLEF_ITEMID = "bookId";
 
         const inputTahunTerbit= document.getElementById("tambahTahunTerbit").value;        
 
-        const  parameterBelum = masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,false)
+        const  bukuBelum = masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,false)
 
-        const  parameterSudah= masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,true)
+        const  bukuSudah= masukanBuku(inputJudul,inputID,inputPenulis,inputTahunTerbit,true)
 
         const bookshelfObjectBelum = composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,false)
         const bookshelfObjectSudah = composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,true)
-
+        bukuBelum[BOOKSHLEF_ITEMID] = bookshelfObjectBelum.id;
+        bukuSudah[BOOKSHLEF_ITEMID] = bookshelfObjectSudah.id;
             if(checkboxBelum.checked === true){
-                bukuBelumSelesai.append(parameterBelum); 
+                bukuBelumSelesai.append(bukuBelum); 
                 bookshelfs.push(bookshelfObjectBelum);  
                  
             }else if (checkboxSudah.checked ===true){
-                bukuSudahSelesai.append(parameterSudah);    
+                bukuSudahSelesai.append(bukuSudah);    
                 bookshelfs.push(bookshelfObjectSudah);           
                 
             }else{
                 alert("Pilih Kategori Buku!")                
             }     
             confirm("apakah anda yakin akan menambahkan buku ini?");
+            console.log(bukuBelum[BOOKSHLEF_ITEMID]);
+            console.log(bukuSudah[BOOKSHLEF_ITEMID])
             updateDataBuku();
     };
-
       // masukkan buku ke container sudah selesai  dibaca
     function tambahKeSelesai(daftarBuku) {
         const judulBukuSelesai = daftarBuku.querySelector(".book_item>h3").innerText;
@@ -174,13 +177,12 @@ const BOOKSHLEF_ITEMID = "bookId";
         tambahBelum[BOOKSHLEF_ITEMID] = bookshelf.id;
 
         daftarBuku.remove();  
-
-         updateDataBuku();
+        updateDataBuku();
 
     }
 
     // menghapus buku
-    function hapusBuku(daftarBuku, inputJudul) {
+    function hapusBuku(daftarBuku) {
         const bookshelfPosition =findBookshelfIndex(daftarBuku[BOOKSHLEF_ITEMID]);
         bookshelfs.splice(bookshelfPosition,1);
         confirm("apakah anda yakin akan menghapus buku ini?");
@@ -231,6 +233,8 @@ const BOOKSHLEF_ITEMID = "bookId";
                 listBelumSelesai.append(tambahBuku);
             }
         }
+        console.log(tambahBuku[BOOKSHLEF_ITEMID]);
+        updateDataBuku();
     }
 
 

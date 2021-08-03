@@ -1,7 +1,8 @@
 // local web storage
     const STORAGE_KEY ="BOOKSHELF_APPS";
     let bookshelfs = [];
-
+    let bookshelf = localStorage.getItem(STORAGE_KEY);
+    const book = JSON.parse(bookshelf);
     function isStorageExist() {
         if(typeof(Storage) === undefined) {
             alert("browser kamu tidak mendukung local storage");        
@@ -19,7 +20,7 @@
     }
 
     function loadDataFromStorage() {
-        const serializedData = localStorage.getItem(STORAGE_KEY);
+        const serializedData = bookshelf;
 
         let data = JSON.parse(serializedData);
 
@@ -37,6 +38,7 @@
 
     function composeBookshelfObject(inputJudul,inputID,inputPenulis,inputTahunTerbit,sudahBelum) {
         return {
+            id : +new Date(),
             inputJudul,
             inputID,
             inputPenulis,
